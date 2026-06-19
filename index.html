@@ -19,7 +19,10 @@
     <a href="#manifesto">Manifeste</a>
     <a href="#contact">Contact</a>
   </div>
+  <div class="nav-actions">
   <a class="nav-cta" href="#contact">Échanger</a>
+  <a class="nav-cta nav-cta-ceres" href="#contact-pilote">Pilote Ceres</a>
+  </div>
 </nav>
 
 <header class="hero">
@@ -212,7 +215,7 @@
           </div>
           <div class="ceres-body">
             <div class="ceres-panel">
-              <div class="ceres-panel-head">Carte secteurs <button class="ceres-btn">Export PDF</button></div>
+              <div class="ceres-panel-head">Carte secteurs <button type="button" class="ceres-btn" data-demo-action="export">Export PDF</button></div>
               <div class="ceres-map">
                 <div class="ceres-map-grid">
                   <div class="ceres-parcel"><strong>Nord</strong><br/>892 ha · 71 q/ha</div>
@@ -339,11 +342,41 @@
     <div class="section-num">06 — Contact</div>
     <h2 class="section-title">Échanger</h2>
     <div class="contact-block">
-      <p>Stanislas Banaszuk &amp; Timothey Berl — co-fondateurs</p>
-      <p style="margin-top:16px;font-size:14px;color:var(--ink-3);">Société · email · site web<br/><em>À compléter après création SAS</em></p>
+      <p class="contact-lead">Filament est en structuration (SAS été 2026). Pas encore de compte produit — en attendant, contactez-nous directement ou manifestez votre intérêt pour le pilote Ceres.</p>
+      <div class="contact-actions">
+        <a class="contact-btn primary" href="https://www.linkedin.com/in/sbanaszuk/" target="_blank" rel="noopener">Stanislas — LinkedIn</a>
+        <a class="contact-btn primary" href="https://www.linkedin.com/in/timothey-berl-2b16a479/" target="_blank" rel="noopener">Timothey — LinkedIn</a>
+        <a class="contact-btn" href="#contact-pilote">Liste pilote Ceres ↓</a>
+      </div>
+      <div class="contact-divider" id="contact-pilote">
+        <h3>S'inscrire au pilote Ceres AI (automne 2026)</h3>
+        <p>Exploitants et coopératives — blé tendre, France. Nous vous recontactons quand les pilotes ouvrent.</p>
+        <form class="pilot-form" id="pilot-form" novalidate>
+          <label for="pilot-name">Nom / structure</label>
+          <input type="text" id="pilot-name" name="name" required autocomplete="name" placeholder="Expl. Dupont ou Coop du Val"/>
+          <label for="pilot-email">Email</label>
+          <input type="email" id="pilot-email" name="email" required autocomplete="email" placeholder="vous@exemple.fr"/>
+          <label for="pilot-profile">Profil</label>
+          <select id="pilot-profile" name="profile" required>
+            <option value="">Choisir…</option>
+            <option value="exploitant">Exploitant agricole</option>
+            <option value="coop">Coopérative / négoce</option>
+            <option value="conseil">Conseiller / technicien</option>
+            <option value="autre">Autre</option>
+          </select>
+          <label for="pilot-message">Message (optionnel)</label>
+          <textarea id="pilot-message" name="message" placeholder="Surface blé, département, besoin principal…"></textarea>
+          <button type="submit" id="pilot-submit">Manifester mon intérêt</button>
+          <p class="form-note">Email société à compléter post-SAS — les demandes arrivent via le canal configuré ci-dessous.</p>
+          <div class="form-success" id="pilot-success" role="status"></div>
+        </form>
+      </div>
+      <p style="margin-top:24px;font-size:13px;color:var(--ink-3);">Stanislas Banaszuk &amp; Timothey Berl — co-fondateurs · Paris</p>
     </div>
   </div>
 </section>
+
+<div class="demo-toast" id="demo-toast" aria-live="polite"></div>
 
 <footer>
   <span class="filament-mark">FILAMENT</span>
@@ -351,6 +384,82 @@
 </footer>
 
 <script>
+var SITE_CONFIG = {
+  // Set your email to enable form delivery via FormSubmit (free, one-time activation email):
+  contactEmail: null,
+  linkedinStan: 'https://www.linkedin.com/in/sbanaszuk/',
+  linkedinTim: 'https://www.linkedin.com/in/timothey-berl-2b16a479/'
+};
+
+function showToast(msg) {
+  var el = document.getElementById('demo-toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(function() { el.classList.remove('show'); }, 4200);
+}
+
+document.querySelectorAll('[data-demo-action]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    showToast('Démo — export disponible en version pilote. Manifestez votre intérêt en bas de page.');
+    document.getElementById('contact-pilote').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+document.getElementById('pilot-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var form = e.target;
+  var name = form.name.value.trim();
+  var email = form.email.value.trim();
+  var profile = form.profile.value;
+  var message = form.message.value.trim();
+  if (!name || !email || !profile) {
+    showToast('Merci de remplir nom, email et profil.');
+    return;
+  }
+  var submitBtn = document.getElementById('pilot-submit');
+  var successEl = document.getElementById('pilot-success');
+  submitBtn.disabled = true;
+  var bodyText = 'Demande pilote Ceres AI\n\nNom/structure: ' + name + '\nEmail: ' + email + '\nProfil: ' + profile + (message ? '\nMessage: ' + message : '');
+  function showSuccess(html) {
+    successEl.innerHTML = html;
+    successEl.classList.add('visible');
+    form.reset();
+    submitBtn.disabled = false;
+  }
+  if (SITE_CONFIG.contactEmail) {
+    fetch('https://formsubmit.co/ajax/' + encodeURIComponent(SITE_CONFIG.contactEmail), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        _subject: 'Pilote Ceres — ' + name,
+        _template: 'table',
+        name: name,
+        email: email,
+        profile: profile,
+        message: message || '—'
+      })
+    }).then(function(r) {
+      if (r.ok) {
+        showSuccess('Demande envoyée — nous vous recontactons pour le pilote automne 2026.');
+      } else {
+        throw new Error('submit failed');
+      }
+    }).catch(function() {
+      submitBtn.disabled = false;
+      showToast('Envoi impossible — contactez-nous sur LinkedIn.');
+      window.open(SITE_CONFIG.linkedinStan, '_blank', 'noopener');
+    });
+  } else {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(bodyText).catch(function() {});
+    }
+    showSuccess('Demande enregistrée localement. <a href="' + SITE_CONFIG.linkedinStan + '" target="_blank" rel="noopener">Contactez Stanislas sur LinkedIn</a> en collant votre message — activation email société en cours.');
+    window.open(SITE_CONFIG.linkedinStan, '_blank', 'noopener');
+    submitBtn.disabled = false;
+  }
+});
+
 var personaContent = {
   exploitant: {
     cards: [
