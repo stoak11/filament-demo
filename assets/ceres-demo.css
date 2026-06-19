@@ -1,0 +1,90 @@
+/* Ceres AI — demo UI (embedded in Filament site) */
+.ceres-app { font-size: 14px; color: var(--ceres-ink, #064e3b); }
+.ceres-topbar {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 24px 28px 16px; background: #fff; border-bottom: 1px solid #dde5df;
+}
+.ceres-topbar h4 { font-size: 18px; font-weight: 600; color: #1a2e1f; }
+.ceres-topbar .sub { font-size: 12px; color: #5c6b60; margin-top: 4px; }
+.ceres-badge {
+  background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 700;
+  padding: 6px 12px; border-radius: 99px; white-space: nowrap;
+}
+.ceres-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  padding: 16px 28px; background: #fafbfa;
+}
+.ceres-stat {
+  background: #fff; border: 1px solid #dde5df; border-radius: 10px; padding: 14px 16px;
+}
+.ceres-stat .lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #5c6b60; }
+.ceres-stat .val { font-size: 22px; font-weight: 700; color: #1a2e1f; margin-top: 4px; }
+.ceres-stat .delta { font-size: 11px; color: #047857; margin-top: 2px; }
+.ceres-body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; padding: 16px 28px 28px; background: #f4f6f3; }
+.ceres-panel { background: #fff; border: 1px solid #dde5df; border-radius: 10px; overflow: hidden; }
+.ceres-panel-head {
+  padding: 12px 16px; border-bottom: 1px solid #dde5df;
+  font-weight: 600; font-size: 13px; display: flex; justify-content: space-between; align-items: center;
+}
+.ceres-map {
+  height: 240px; background: linear-gradient(135deg, #e8f5e9, #a5d6a7);
+  position: relative; padding: 16px;
+}
+.ceres-map-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; height: 100%;
+}
+.ceres-parcel {
+  background: rgba(255,255,255,0.8); border-radius: 6px; padding: 8px 10px;
+  font-size: 11px; border-left: 3px solid #047857;
+}
+.ceres-parcel.warn { border-left-color: #d97706; }
+.ceres-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.ceres-table th {
+  text-align: left; padding: 8px 14px; font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.05em; color: #5c6b60; background: #fafbfa;
+}
+.ceres-table td { padding: 10px 14px; border-top: 1px solid #dde5df; }
+.ceres-conf { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 5px; }
+.ceres-conf.hi { background: #047857; } .ceres-conf.med { background: #d97706; }
+.ceres-btn {
+  background: #047857; color: #fff; border: none; padding: 6px 12px;
+  border-radius: 6px; font-size: 11px; font-weight: 600;
+}
+
+/* Exploitant — mobile-first layout */
+.ceres-mobile { max-width: 380px; margin: 0 auto; padding: 24px; background: #f4f6f3; min-height: 480px; }
+.ceres-mobile-card {
+  background: #fff; border-radius: 16px; padding: 24px; border: 1px solid #dde5df;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+.ceres-yield {
+  text-align: center; padding: 20px 0;
+}
+.ceres-yield .big { font-family: var(--font-serif, Georgia); font-size: 3.5rem; color: #047857; line-height: 1; }
+.ceres-yield .range { font-size: 14px; color: #5c6b60; margin-top: 8px; }
+.ceres-timeline { margin-top: 20px; }
+.ceres-timeline-item {
+  display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #eef2ee;
+  font-size: 12px;
+}
+.ceres-timeline-item .dot { width: 8px; height: 8px; border-radius: 50%; background: #047857; margin-top: 5px; flex-shrink: 0; }
+.ceres-timeline-item .dot.pending { background: #d1d5db; }
+
+/* Assureur */
+.ceres-insurer { padding: 24px 28px 28px; background: #f4f6f3; min-height: 480px; }
+.ceres-risk-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+.ceres-risk {
+  background: #fff; border: 1px solid #dde5df; border-radius: 10px; padding: 16px;
+}
+.ceres-risk .zone { font-weight: 600; font-size: 13px; color: #1a2e1f; }
+.ceres-risk .score { font-size: 28px; font-weight: 700; margin: 8px 0 4px; }
+.ceres-risk.low .score { color: #047857; }
+.ceres-risk.med .score { color: #d97706; }
+.ceres-risk.high .score { color: #dc2626; }
+.ceres-risk .detail { font-size: 11px; color: #5c6b60; }
+
+@media (max-width: 768px) {
+  .ceres-stats { grid-template-columns: repeat(2, 1fr); }
+  .ceres-body { grid-template-columns: 1fr; }
+  .ceres-risk-grid { grid-template-columns: 1fr; }
+}
