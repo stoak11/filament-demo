@@ -1,90 +1,777 @@
-/* Ceres AI — demo UI (embedded in Filament site) */
-.ceres-app { font-size: 14px; color: var(--ceres-ink, #064e3b); }
-.ceres-topbar {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  padding: 24px 28px 16px; background: #fff; border-bottom: 1px solid #dde5df;
-}
-.ceres-topbar h4 { font-size: 18px; font-weight: 600; color: #1a2e1f; }
-.ceres-topbar .sub { font-size: 12px; color: #5c6b60; margin-top: 4px; }
-.ceres-badge {
-  background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 700;
-  padding: 6px 12px; border-radius: 99px; white-space: nowrap;
-}
-.ceres-stats {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
-  padding: 16px 28px; background: #fafbfa;
-}
-.ceres-stat {
-  background: #fff; border: 1px solid #dde5df; border-radius: 10px; padding: 14px 16px;
-}
-.ceres-stat .lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #5c6b60; }
-.ceres-stat .val { font-size: 22px; font-weight: 700; color: #1a2e1f; margin-top: 4px; }
-.ceres-stat .delta { font-size: 11px; color: #047857; margin-top: 2px; }
-.ceres-body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; padding: 16px 28px 28px; background: #f4f6f3; }
-.ceres-panel { background: #fff; border: 1px solid #dde5df; border-radius: 10px; overflow: hidden; }
-.ceres-panel-head {
-  padding: 12px 16px; border-bottom: 1px solid #dde5df;
-  font-weight: 600; font-size: 13px; display: flex; justify-content: space-between; align-items: center;
-}
-.ceres-map {
-  height: 240px; background: linear-gradient(135deg, #e8f5e9, #a5d6a7);
-  position: relative; padding: 16px;
-}
-.ceres-map-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; height: 100%;
-}
-.ceres-parcel {
-  background: rgba(255,255,255,0.8); border-radius: 6px; padding: 8px 10px;
-  font-size: 11px; border-left: 3px solid #047857;
-}
-.ceres-parcel.warn { border-left-color: #d97706; }
-.ceres-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-.ceres-table th {
-  text-align: left; padding: 8px 14px; font-size: 10px; text-transform: uppercase;
-  letter-spacing: 0.05em; color: #5c6b60; background: #fafbfa;
-}
-.ceres-table td { padding: 10px 14px; border-top: 1px solid #dde5df; }
-.ceres-conf { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 5px; }
-.ceres-conf.hi { background: #047857; } .ceres-conf.med { background: #d97706; }
-.ceres-btn {
-  background: #047857; color: #fff; border: none; padding: 6px 12px;
-  border-radius: 6px; font-size: 11px; font-weight: 600;
+/* Ceres AI — embedded previews (mirrors ceres-demo lean UI) */
+.ceres-embed {
+  --bg: #f4f6f3;
+  --surface: #ffffff;
+  --ink: #1a2e1f;
+  --muted: #5c6b60;
+  --accent: #047857;
+  --accent-light: #ecfdf5;
+  --accent-dark: #064e3b;
+  --warn: #bc6c25;
+  --border: #dde5df;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.5;
+  text-align: left;
 }
 
-/* Exploitant — mobile-first layout */
-.ceres-mobile { max-width: 380px; margin: 0 auto; padding: 24px; background: #f4f6f3; min-height: 480px; }
-.ceres-mobile-card {
-  background: #fff; border-radius: 16px; padding: 24px; border: 1px solid #dde5df;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+.ceres-embed *,
+.ceres-embed *::before,
+.ceres-embed *::after {
+  box-sizing: border-box;
 }
-.ceres-yield {
-  text-align: center; padding: 20px 0;
+
+/* Shared chrome */
+.ceres-embed .embed-source {
+  background: #fff8e6;
+  border-bottom: 1px solid #f0e0b0;
+  padding: 6px 12px;
+  font-size: 10px;
+  color: #7a6520;
+  text-align: center;
+  line-height: 1.35;
 }
-.ceres-yield .big { font-family: var(--font-serif, Georgia); font-size: 3.5rem; color: #047857; line-height: 1; }
-.ceres-yield .range { font-size: 14px; color: #5c6b60; margin-top: 8px; }
-.ceres-timeline { margin-top: 20px; }
-.ceres-timeline-item {
-  display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #eef2ee;
+
+.ceres-embed .embed-mode {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 6px 12px;
+  font-size: 11px;
+  background: #f0fdf4;
+  border-bottom: 1px solid #bbf7d0;
+  color: #065f46;
+}
+
+.ceres-embed .embed-mode strong {
+  font-weight: 700;
+}
+
+.ceres-embed .embed-mode a {
+  color: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* —— Exploitant (mobile shell) —— */
+.ceres-embed--farmer .embed-app {
+  max-width: 380px;
+  margin: 0 auto;
+  background: var(--bg);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+.ceres-embed--farmer .embed-header {
+  background: var(--ink);
+  color: #fff;
+  padding: 14px 16px 16px;
+}
+
+.ceres-embed--farmer .embed-header-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ceres-embed--farmer .embed-back {
+  color: #95d5b2;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.ceres-embed--farmer .embed-header h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.ceres-embed--farmer .embed-user {
+  display: block;
+  margin: 4px 0 0 24px;
+  font-size: 12px;
+  color: #95d5b2;
+}
+
+.ceres-embed--farmer .embed-body {
+  padding-bottom: 52px;
+}
+
+.ceres-embed--farmer .embed-yield-hero {
+  background: var(--accent);
+  margin: 0;
+  padding: 18px 16px 20px;
+  color: #fff;
+  border-radius: 0 0 16px 16px;
+  text-align: center;
+}
+
+.ceres-embed--farmer .embed-yield-big {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ceres-embed--farmer .embed-yield-unit {
+  font-size: 13px;
+  opacity: 0.95;
+  margin-top: 4px;
+}
+
+.ceres-embed--farmer .embed-yield-range {
+  font-size: 12px;
+  margin-top: 8px;
+  opacity: 0.85;
+  line-height: 1.4;
+}
+
+.ceres-embed--farmer .embed-section {
+  padding: 0 16px;
+  margin: 18px 0;
+}
+
+.ceres-embed--farmer .embed-section h5 {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.ceres-embed--farmer .embed-section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.ceres-embed--farmer .embed-section-head h5 {
+  margin-bottom: 0;
+}
+
+.ceres-embed--farmer .embed-link {
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ceres-embed--farmer .embed-season-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 100px;
+  padding: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.ceres-embed--farmer .embed-bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.ceres-embed--farmer .embed-bar {
+  width: 100%;
+  max-width: 40px;
+  background: var(--accent-light);
+  border-radius: 6px 6px 0 0;
+  position: relative;
+  min-height: 20px;
+}
+
+.ceres-embed--farmer .embed-bar.is-current {
+  background: var(--accent);
+}
+
+.ceres-embed--farmer .embed-bar.is-pending {
+  opacity: 0.35;
+  border: 2px dashed var(--border);
+  background: transparent;
+  height: 28px !important;
+}
+
+.ceres-embed--farmer .embed-bar-val {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.ceres-embed--farmer .embed-bar.is-current .embed-bar-val {
+  color: #fff;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ceres-embed--farmer .embed-bar-lbl {
+  margin-top: 6px;
+  font-size: 9px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.ceres-embed--farmer .embed-parcel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.ceres-embed--farmer .embed-parcel strong {
+  display: block;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.ceres-embed--farmer .embed-parcel span {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.ceres-embed--farmer .embed-parcel-yield {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.ceres-embed--farmer .embed-nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.ceres-embed--farmer .embed-nav span {
+  font-size: 10px;
+  color: var(--muted);
+  font-weight: 500;
+  padding: 2px 10px;
+}
+
+.ceres-embed--farmer .embed-nav span.on {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* —— Coop & Assureur (dashboard shell) —— */
+.ceres-embed--desk .embed-layout {
+  display: grid;
+  grid-template-columns: 168px 1fr;
+  min-height: 520px;
+}
+
+.ceres-embed--desk .embed-sidebar {
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ceres-embed--coop .embed-sidebar {
+  background: var(--ink);
+  color: #e8efe9;
+}
+
+.ceres-embed--insurer .embed-sidebar {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+.ceres-embed--desk .embed-logo {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.ceres-embed--coop .embed-logo span {
+  color: #95d5b2;
+}
+
+.ceres-embed--insurer .embed-logo span {
+  color: #93c5fd;
+}
+
+.ceres-embed--insurer .embed-role {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+
+.ceres-embed--desk .embed-switch {
+  font-size: 10px;
+  text-decoration: none;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.ceres-embed--coop .embed-switch {
+  color: #95d5b2;
+}
+
+.ceres-embed--insurer .embed-switch {
+  color: #93c5fd;
+}
+
+.ceres-embed--desk .embed-side-nav a {
+  display: block;
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  text-decoration: none;
+  margin-bottom: 2px;
+}
+
+.ceres-embed--coop .embed-side-nav a {
+  color: #b7c9bc;
+}
+
+.ceres-embed--coop .embed-side-nav a.active,
+.ceres-embed--coop .embed-side-nav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.ceres-embed--insurer .embed-side-nav a {
+  color: #94a3b8;
+}
+
+.ceres-embed--insurer .embed-side-nav a.active,
+.ceres-embed--insurer .embed-side-nav a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.ceres-embed--desk .embed-side-foot {
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.ceres-embed--desk .embed-side-foot small {
+  display: block;
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.ceres-embed--coop .embed-side-foot small {
+  color: #7a9a88;
+}
+
+.ceres-embed--insurer .embed-side-foot small {
+  color: #64748b;
+}
+
+.ceres-embed--desk .embed-main {
+  padding: 16px 18px;
+  background: var(--bg);
+  overflow: auto;
+}
+
+.ceres-embed--desk .embed-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.ceres-embed--desk .embed-topbar h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.ceres-embed--desk .embed-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.ceres-embed--desk .embed-badge {
+  background: var(--accent-light);
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+.ceres-embed--desk .embed-alerts {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+
+.ceres-embed--desk .embed-alerts-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.ceres-embed--desk .embed-alerts-head h5 {
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ceres-embed--desk .embed-alert-count {
+  background: var(--warn);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 99px;
+}
+
+.ceres-embed--desk .embed-alerts-head a {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ceres-embed--desk .embed-alert {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin-bottom: 6px;
   font-size: 12px;
 }
-.ceres-timeline-item .dot { width: 8px; height: 8px; border-radius: 50%; background: #047857; margin-top: 5px; flex-shrink: 0; }
-.ceres-timeline-item .dot.pending { background: #d1d5db; }
 
-/* Assureur */
-.ceres-insurer { padding: 24px 28px 28px; background: #f4f6f3; min-height: 480px; }
-.ceres-risk-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
-.ceres-risk {
-  background: #fff; border: 1px solid #dde5df; border-radius: 10px; padding: 16px;
+.ceres-embed--desk .embed-alert:last-child {
+  margin-bottom: 0;
 }
-.ceres-risk .zone { font-weight: 600; font-size: 13px; color: #1a2e1f; }
-.ceres-risk .score { font-size: 28px; font-weight: 700; margin: 8px 0 4px; }
-.ceres-risk.low .score { color: #047857; }
-.ceres-risk.med .score { color: #d97706; }
-.ceres-risk.high .score { color: #dc2626; }
-.ceres-risk .detail { font-size: 11px; color: #5c6b60; }
 
-@media (max-width: 768px) {
-  .ceres-stats { grid-template-columns: repeat(2, 1fr); }
-  .ceres-body { grid-template-columns: 1fr; }
-  .ceres-risk-grid { grid-template-columns: 1fr; }
+.ceres-embed--desk .embed-alert strong {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
+.ceres-embed--desk .embed-alert p {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.ceres-embed--desk .embed-alert.is-watch {
+  border-left: 3px solid var(--warn);
+  background: #fffbeb;
+}
+
+.ceres-embed--desk .embed-alert.is-critical {
+  border-left: 3px solid #dc2626;
+  background: #fef2f2;
+}
+
+.ceres-embed--desk .embed-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.ceres-embed--desk .embed-stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.ceres-embed--desk .embed-stat span {
+  display: block;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.ceres-embed--desk .embed-stat strong {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-top: 4px;
+}
+
+.ceres-embed--desk .embed-stat em {
+  display: block;
+  font-size: 10px;
+  color: var(--accent);
+  margin-top: 2px;
+  font-style: normal;
+}
+
+.ceres-embed--desk .embed-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 12px;
+}
+
+.ceres-embed--desk .embed-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.ceres-embed--desk .embed-panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ceres-embed--desk .embed-panel-head a,
+.ceres-embed--desk .embed-panel-head button {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+}
+
+.ceres-embed--desk .embed-panel-head .embed-btn {
+  background: var(--accent);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+.ceres-embed--coop .embed-map {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 12px;
+  min-height: 200px;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%);
+}
+
+.ceres-embed--coop .embed-map-tile {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 11px;
+  border-left: 3px solid var(--accent);
+}
+
+.ceres-embed--coop .embed-map-tile.is-alert {
+  border-left-color: var(--warn);
+}
+
+.ceres-embed--coop .embed-map-tile strong {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
+.ceres-embed--coop .embed-map-tile span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.ceres-embed--coop .embed-map-tile em {
+  display: block;
+  font-size: 10px;
+  color: var(--warn);
+  font-style: normal;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.ceres-embed--insurer .embed-dept-map {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 12px;
+}
+
+.ceres-embed--insurer .embed-dept-tile {
+  padding: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 11px;
+}
+
+.ceres-embed--insurer .embed-dept-tile.is-stress {
+  border-left: 3px solid #dc2626;
+}
+
+.ceres-embed--insurer .embed-dept-tile.is-watch {
+  border-left: 3px solid #d97706;
+}
+
+.ceres-embed--insurer .embed-dept-tile strong {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
+.ceres-embed--insurer .embed-dept-tile span {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.ceres-embed--insurer .embed-dept-tile em {
+  display: block;
+  font-size: 10px;
+  font-style: normal;
+  color: #dc2626;
+  margin-top: 3px;
+}
+
+.ceres-embed--desk .embed-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.ceres-embed--desk .embed-table th {
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  background: #fafbfa;
+}
+
+.ceres-embed--desk .embed-table td {
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+}
+
+.ceres-embed--desk .gap-pos {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.ceres-embed--desk .gap-neg {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.ceres-embed--desk .embed-conf {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.ceres-embed--desk .embed-conf-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.ceres-embed--desk .embed-conf.hi {
+  color: #047857;
+}
+
+.ceres-embed--desk .embed-conf.hi .embed-conf-dot {
+  background: #047857;
+}
+
+.ceres-embed--desk .embed-conf.med {
+  color: #bc6c25;
+}
+
+.ceres-embed--desk .embed-conf.med .embed-conf-dot {
+  background: #bc6c25;
+}
+
+.ceres-embed--desk .ins-signal {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.ceres-embed--desk .ins-signal--normal {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.ceres-embed--desk .ins-signal--watch {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.ceres-embed--desk .ins-signal--stress {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+@media (max-width: 900px) {
+  .ceres-embed--desk .embed-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .ceres-embed--desk .embed-sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 12px;
+  }
+
+  .ceres-embed--desk .embed-side-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    width: 100%;
+  }
+
+  .ceres-embed--desk .embed-side-foot {
+    display: none;
+  }
+
+  .ceres-embed--desk .embed-stats,
+  .ceres-embed--desk .embed-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ceres-embed--coop .embed-map,
+  .ceres-embed--insurer .embed-dept-map {
+    grid-template-columns: 1fr 1fr;
+  }
 }

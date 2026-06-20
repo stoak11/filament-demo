@@ -6,6 +6,9 @@
 <title>Filament</title>
 <link rel="stylesheet" href="assets/filament.css"/>
 <link rel="stylesheet" href="assets/ceres-demo.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 </head>
 <body>
 
@@ -172,101 +175,205 @@
       <div class="demo-frame-wrap">
 
         <!-- Exploitant (default) -->
-        <div class="demo-panel active ceres-app" id="panel-exploitant" role="tabpanel">
-          <div class="ceres-mobile">
-            <div class="ceres-mobile-card">
-              <div style="font-size:13px;color:#5c6b60;margin-bottom:4px;">Exploitation Gréhan, Blé tendre 2026</div>
-              <div class="ceres-yield">
-                <div class="big">69</div>
-                <div class="range">q/ha en moyenne, 186 ha</div>
-                <div class="range" style="margin-top:12px;font-size:13px;">Fourchette 64–74 q/ha, Confiance moyenne</div>
+        <div class="demo-panel active ceres-embed ceres-embed--farmer" id="panel-exploitant" role="tabpanel">
+          <div class="embed-app">
+            <div class="embed-source">Données fictives · Démo produit · Juin 2026 · RPG · Météo-France · Sentinel-2 · Modèle Ceres v0.3</div>
+            <div class="embed-mode"><span>Vue <strong>Essentiel</strong> (lean), proche produit cible</span><a href="https://ceresdemo.netlify.app/farmer/lean" target="_blank" rel="noopener">Ouvrir →</a></div>
+            <header class="embed-header">
+              <div class="embed-header-top">
+                <span class="embed-back" aria-hidden="true">←</span>
+                <h4>Ceres AI</h4>
               </div>
-              <div class="ceres-timeline">
-                <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#5c6b60;margin-bottom:8px;">Évolution saison</div>
-                <div class="ceres-timeline-item"><span class="dot"></span><div><strong>Avril (levée)</strong><br/>Estimation initiale, 72 q/ha</div></div>
-                <div class="ceres-timeline-item"><span class="dot"></span><div><strong>Mai (montaison)</strong><br/>Révision, 70 q/ha</div></div>
-                <div class="ceres-timeline-item"><span class="dot"></span><div><strong>Juin (épiaison)</strong><br/>Actuel, 69 q/ha, MAJ 8 juin</div></div>
-                <div class="ceres-timeline-item"><span class="dot pending"></span><div><strong>Juillet (floraison)</strong><br/>Prochaine MAJ prévue</div></div>
+              <span class="embed-user">Tom Gréhan, Exploitation Gréhan</span>
+            </header>
+            <div class="embed-body">
+              <div class="embed-yield-hero">
+                <div class="embed-yield-big">69</div>
+                <div class="embed-yield-unit">q/ha en moyenne, 186 ha</div>
+                <div class="embed-yield-range">Fourchette 61–76 q/ha, Confiance moyenne, MAJ 8 juin 2026</div>
               </div>
-              <div style="margin-top:20px;">
-                <table class="ceres-table">
-                  <tr><th>Parcelle</th><th>Surface</th><th>Estimé</th></tr>
-                  <tr><td>Les Vignes</td><td>42 ha</td><td>71 q/ha</td></tr>
-                  <tr><td>Le Pré</td><td>38 ha</td><td>67 q/ha</td></tr>
-                  <tr><td>La Butte</td><td>56 ha</td><td>68 q/ha</td></tr>
-                  <tr><td>Champ Nord</td><td>50 ha</td><td>70 q/ha</td></tr>
-                </table>
+              <div class="embed-section">
+                <h5>Évolution saison</h5>
+                <div class="embed-season-bars">
+                  <div class="embed-bar-col"><div class="embed-bar" style="height:100%"><span class="embed-bar-val">72</span></div><span class="embed-bar-lbl">Avril</span></div>
+                  <div class="embed-bar-col"><div class="embed-bar" style="height:65%"><span class="embed-bar-val">70</span></div><span class="embed-bar-lbl">Mai</span></div>
+                  <div class="embed-bar-col"><div class="embed-bar is-current" style="height:48%"><span class="embed-bar-val">69</span></div><span class="embed-bar-lbl">Juin</span></div>
+                  <div class="embed-bar-col"><div class="embed-bar is-pending"></div><span class="embed-bar-lbl">Juillet</span></div>
+                </div>
+              </div>
+              <div class="embed-section">
+                <div class="embed-section-head">
+                  <h5>Mes parcelles</h5>
+                  <a class="embed-link" href="https://ceresdemo.netlify.app/farmer/lean/parcels" target="_blank" rel="noopener">Tout voir →</a>
+                </div>
+                <div class="embed-parcel"><div><strong>Les Vignes</strong><span>42 ha, Blé tendre</span></div><span class="embed-parcel-yield">71</span></div>
+                <div class="embed-parcel"><div><strong>Le Pré</strong><span>38 ha, Blé tendre</span></div><span class="embed-parcel-yield">67</span></div>
+                <div class="embed-parcel"><div><strong>La Butte</strong><span>56 ha, Blé tendre</span></div><span class="embed-parcel-yield">68</span></div>
+                <div class="embed-parcel"><div><strong>Champ Nord</strong><span>50 ha, Blé tendre</span></div><span class="embed-parcel-yield">70</span></div>
               </div>
             </div>
+            <nav class="embed-nav" aria-label="Navigation exploitant">
+              <span class="on">Accueil</span><span>Parcelles</span><span>Carte</span><span>Profil</span>
+            </nav>
           </div>
         </div>
 
         <!-- Coop -->
-        <div class="demo-panel ceres-app" id="panel-coop" role="tabpanel">
-          <div class="ceres-topbar">
-            <div>
-              <h4>Coopérative du Val d'Oise, blé tendre 2026</h4>
-              <p class="sub">Campagne en cours, MAJ 8 juin, RPG + Météo-France + Sentinel-2</p>
-            </div>
-            <span class="ceres-badge">MAJ #2 (épiaison)</span>
-          </div>
-          <div class="ceres-stats">
-            <div class="ceres-stat"><div class="lbl">Surface totale</div><div class="val">4 280 ha</div></div>
-            <div class="ceres-stat"><div class="lbl">Rendement moyen</div><div class="val">68 q/ha</div><div class="delta">± 4 q/ha</div></div>
-            <div class="ceres-stat"><div class="lbl">Volume prévu</div><div class="val">29,1 kt</div><div class="delta">+6 % vs 2025</div></div>
-            <div class="ceres-stat"><div class="lbl">Parcelles</div><div class="val">312</div></div>
-          </div>
-          <div class="ceres-body">
-            <div class="ceres-panel">
-              <div class="ceres-panel-head">Carte secteurs <button type="button" class="ceres-btn" data-demo-action="export">Export PDF</button></div>
-              <div class="ceres-map">
-                <div class="ceres-map-grid">
-                  <div class="ceres-parcel"><strong>Nord</strong><br/>892 ha, 71 q/ha</div>
-                  <div class="ceres-parcel warn"><strong>Est</strong><br/>654 ha, 62 q/ha</div>
-                  <div class="ceres-parcel"><strong>Sud</strong><br/>1 120 ha, 69 q/ha</div>
-                  <div class="ceres-parcel"><strong>Ouest</strong><br/>743 ha, 67 q/ha</div>
-                  <div class="ceres-parcel warn"><strong>Centre</strong><br/>521 ha, 64 q/ha</div>
-                  <div class="ceres-parcel"><strong>Autres</strong><br/>350 ha, 70 q/ha</div>
+        <div class="demo-panel ceres-embed ceres-embed--desk ceres-embed--coop" id="panel-coop" role="tabpanel">
+          <div class="embed-app">
+            <div class="embed-source">Données fictives · Démo produit · Juin 2026 · RPG · Météo-France · Sentinel-2 · Modèle Ceres v0.3</div>
+            <div class="embed-mode"><span>Vue <strong>Essentiel</strong> (lean), proche produit cible</span><a href="https://ceresdemo.netlify.app/coop/lean" target="_blank" rel="noopener">Ouvrir →</a></div>
+            <div class="embed-layout">
+              <aside class="embed-sidebar">
+                <div class="embed-logo">Ceres<span>AI</span></div>
+                <span class="embed-switch">← Accueil démo</span>
+                <nav class="embed-side-nav">
+                  <a class="active" href="#">Tableau de bord</a>
+                  <a href="#">Alertes</a>
+                  <a href="#">Profil</a>
+                  <a href="#">Secteurs</a>
+                  <a href="#">Parcelles</a>
+                  <a href="#">Exports</a>
+                </nav>
+                <div class="embed-side-foot">
+                  <small>Coopérative du Val d'Oise</small>
+                  <small>Blé tendre 2026</small>
                 </div>
-              </div>
-            </div>
-            <div class="ceres-panel">
-              <div class="ceres-panel-head">Écarts vs moyenne coop</div>
-              <table class="ceres-table">
-                <tr><th>Parcelle / Adhérent</th><th>Estimé</th><th>Conf.</th></tr>
-                <tr><td>P-1842, Expl. Martin</td><td>74 q/ha</td><td><span class="ceres-conf hi"></span>Haute</td></tr>
-                <tr><td>P-0921, Expl. Dupont</td><td>58 q/ha</td><td><span class="ceres-conf med"></span>Moyenne</td></tr>
-                <tr><td>P-3301, GA Les Champs</td><td>71 q/ha</td><td><span class="ceres-conf hi"></span>Haute</td></tr>
-                <tr><td>P-1104, Expl. Leroy</td><td>61 q/ha</td><td><span class="ceres-conf med"></span>Moyenne</td></tr>
-              </table>
+              </aside>
+              <main class="embed-main">
+                <header class="embed-topbar">
+                  <div>
+                    <h4>Coopérative du Val d'Oise, Blé tendre 2026</h4>
+                    <p class="embed-sub">Campagne en cours, MAJ 8 juin 2026, Modèle v0.3</p>
+                  </div>
+                  <span class="embed-badge">MAJ #2 (épiaison)</span>
+                </header>
+                <div class="embed-alerts">
+                  <div class="embed-alerts-head">
+                    <h5>Alertes actives <span class="embed-alert-count">2</span></h5>
+                    <a href="#">Paramétrer</a>
+                  </div>
+                  <div class="embed-alert is-watch">
+                    <strong>2 secteurs sous moyenne coop</strong>
+                    <p>Est (62 q/ha), Centre (64 q/ha), vs 68 q/ha moyenne</p>
+                  </div>
+                  <div class="embed-alert is-watch">
+                    <strong>Volume prévu en hausse</strong>
+                    <p>29,1 kt estimés, +6 % vs campagne 2025</p>
+                  </div>
+                </div>
+                <div class="embed-stats">
+                  <div class="embed-stat"><span>Surface totale</span><strong>4 280 ha</strong></div>
+                  <div class="embed-stat"><span>Rendement moyen</span><strong>68 q/ha</strong><em>± 4 q/ha (IC 80 %)</em></div>
+                  <div class="embed-stat"><span>Volume prévu</span><strong>29,1 kt</strong><em>+6 % vs 2025</em></div>
+                  <div class="embed-stat"><span>Parcelles (échantillon)</span><strong>312</strong></div>
+                </div>
+                <div class="embed-grid">
+                  <section class="embed-panel">
+                    <div class="embed-panel-head">Carte secteurs <button type="button" class="embed-btn" data-demo-action="export">Export PDF</button></div>
+                    <div class="embed-map">
+                      <div class="embed-map-tile"><strong>Nord</strong><span>892 ha, 71 q/ha</span></div>
+                      <div class="embed-map-tile is-alert"><strong>Est</strong><span>654 ha, 62 q/ha</span><em>Sous moyenne</em></div>
+                      <div class="embed-map-tile"><strong>Sud</strong><span>1 120 ha, 69 q/ha</span></div>
+                      <div class="embed-map-tile"><strong>Ouest</strong><span>743 ha, 67 q/ha</span></div>
+                      <div class="embed-map-tile is-alert"><strong>Centre</strong><span>521 ha, 64 q/ha</span><em>Sous moyenne</em></div>
+                      <div class="embed-map-tile"><strong>Autres</strong><span>350 ha, 70 q/ha</span></div>
+                    </div>
+                  </section>
+                  <section class="embed-panel">
+                    <div class="embed-panel-head">Écarts vs moyenne coop <a href="#">Tout voir →</a></div>
+                    <table class="embed-table">
+                      <thead><tr><th>Parcelle / adhérent</th><th>Estimé</th><th>Écart</th><th>Conf.</th></tr></thead>
+                      <tbody>
+                        <tr><td><strong>p-1842</strong>, Expl. Martin</td><td>74 q/ha</td><td class="gap-pos">+6</td><td><span class="embed-conf hi"><span class="embed-conf-dot"></span>Haute</span></td></tr>
+                        <tr><td><strong>p-0921</strong>, Expl. Dupont</td><td>58 q/ha</td><td class="gap-neg">−10</td><td><span class="embed-conf med"><span class="embed-conf-dot"></span>Moyenne</span></td></tr>
+                        <tr><td><strong>p-3301</strong>, GA Les Champs</td><td>71 q/ha</td><td class="gap-pos">+3</td><td><span class="embed-conf hi"><span class="embed-conf-dot"></span>Haute</span></td></tr>
+                        <tr><td><strong>p-1104</strong>, Expl. Leroy</td><td>61 q/ha</td><td class="gap-neg">−7</td><td><span class="embed-conf med"><span class="embed-conf-dot"></span>Moyenne</span></td></tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </div>
+              </main>
             </div>
           </div>
         </div>
 
         <!-- Assureur -->
-        <div class="demo-panel ceres-app" id="panel-assureur" role="tabpanel">
-          <div class="ceres-insurer">
-            <div class="ceres-topbar" style="padding:0 0 16px;background:transparent;border:none;">
-              <div>
-                <h4>Exposition récolte, Grand Est, blé 2026</h4>
-                <p class="sub">Agrégation départementale, Indice vs moyenne quinquennale</p>
-              </div>
-              <span class="ceres-badge">MAJ 8 juin 2026</span>
-            </div>
-            <div class="ceres-risk-grid">
-              <div class="ceres-risk low"><div class="zone">Surface assurée</div><div class="score">12 400</div><div class="detail">ha, 847 contrats</div></div>
-              <div class="ceres-risk low"><div class="zone">Rendement portefeuille</div><div class="score">66</div><div class="detail">q/ha, vs 68 normale</div></div>
-              <div class="ceres-risk high"><div class="zone">Dépts. sous normale</div><div class="score">3 / 8</div><div class="detail">écart &gt; −10 %</div></div>
-            </div>
-            <div class="ceres-panel">
-              <div class="ceres-panel-head">Détail par département</div>
-              <table class="ceres-table">
-                <tr><th>Département</th><th>Surface</th><th>Rendement est.</th><th>vs normale</th><th>Signal</th></tr>
-                <tr><td>Marne</td><td>2 100 ha</td><td>71 q/ha</td><td>+4 %</td><td style="color:#047857;font-weight:600;">Normal</td></tr>
-                <tr><td>Aube</td><td>1 850 ha</td><td>58 q/ha</td><td>−12 %</td><td style="color:#dc2626;font-weight:600;">Stress sécheresse</td></tr>
-                <tr><td>Meuse</td><td>980 ha</td><td>63 q/ha</td><td>−8 %</td><td style="color:#d97706;font-weight:600;">Surveillance</td></tr>
-                <tr><td>Haute-Marne</td><td>1 420 ha</td><td>69 q/ha</td><td>+1 %</td><td style="color:#047857;font-weight:600;">Normal</td></tr>
-              </table>
+        <div class="demo-panel ceres-embed ceres-embed--desk ceres-embed--insurer" id="panel-assureur" role="tabpanel">
+          <div class="embed-app">
+            <div class="embed-source">Données fictives · Démo produit · Juin 2026 · RPG · Météo-France · Sentinel-2 · Modèle Ceres v0.3</div>
+            <div class="embed-mode"><span>Vue <strong>Essentiel</strong> (lean), proche produit cible</span><a href="https://ceresdemo.netlify.app/insurer/lean" target="_blank" rel="noopener">Ouvrir →</a></div>
+            <div class="embed-layout">
+              <aside class="embed-sidebar">
+                <div class="embed-logo">Ceres<span>AI</span></div>
+                <span class="embed-role">Assureur récolte</span>
+                <span class="embed-switch">← Accueil démo</span>
+                <nav class="embed-side-nav">
+                  <a class="active" href="#">Portefeuille</a>
+                  <a href="#">Départements</a>
+                  <a href="#">Alertes</a>
+                  <a href="#">Profil</a>
+                  <a href="#">Exports</a>
+                </nav>
+                <div class="embed-side-foot">
+                  <small>Pacifica Récolte (Grand Est)</small>
+                  <small>Blé tendre 2026</small>
+                </div>
+              </aside>
+              <main class="embed-main">
+                <header class="embed-topbar">
+                  <div>
+                    <h4>Pacifica Récolte (Grand Est)</h4>
+                    <p class="embed-sub">Exposition récolte, Grand Est, MAJ 8 juin 2026</p>
+                  </div>
+                  <span class="embed-badge">MAJ #2 (épiaison)</span>
+                </header>
+                <div class="embed-alerts">
+                  <div class="embed-alerts-head">
+                    <h5>Alertes actives <span class="embed-alert-count">2</span></h5>
+                    <a href="#">Paramétrer</a>
+                  </div>
+                  <div class="embed-alert is-critical">
+                    <strong>1 département(s) sous normale</strong>
+                    <p>Aube (−12 %)</p>
+                  </div>
+                  <div class="embed-alert is-watch">
+                    <strong>Rendement portefeuille légèrement sous normale</strong>
+                    <p>66 q/ha vs 68 q/ha quinquennale (−3 %), surveillance recommandée</p>
+                  </div>
+                </div>
+                <div class="embed-stats">
+                  <div class="embed-stat"><span>Surface assurée</span><strong>12 400 ha</strong></div>
+                  <div class="embed-stat"><span>Rendement portefeuille</span><strong>66 q/ha</strong><em>vs 68 q/ha normale</em></div>
+                  <div class="embed-stat"><span>Dépts. sous normale</span><strong>1 / 8</strong><em>écart &gt; −10 %</em></div>
+                  <div class="embed-stat"><span>Contrats actifs</span><strong>847</strong></div>
+                </div>
+                <div class="embed-grid">
+                  <section class="embed-panel">
+                    <div class="embed-panel-head">Carte départements <a href="#">Détail →</a></div>
+                    <div class="embed-dept-map">
+                      <div class="embed-dept-tile"><strong>Marne</strong><span>2 100 ha, 71 q/ha</span></div>
+                      <div class="embed-dept-tile is-stress"><strong>Aube</strong><span>1 850 ha, 58 q/ha</span><em>Stress sécheresse</em></div>
+                      <div class="embed-dept-tile is-watch"><strong>Meuse</strong><span>980 ha, 63 q/ha</span><em>Surveillance</em></div>
+                      <div class="embed-dept-tile"><strong>Haute-Marne</strong><span>1 420 ha, 69 q/ha</span></div>
+                      <div class="embed-dept-tile is-watch"><strong>Vosges</strong><span>1 240 ha, 67 q/ha</span><em>Surveillance</em></div>
+                      <div class="embed-dept-tile is-watch"><strong>Moselle</strong><span>1 560 ha, 64 q/ha</span><em>Surveillance</em></div>
+                    </div>
+                  </section>
+                  <section class="embed-panel">
+                    <div class="embed-panel-head">Départements à surveiller <a href="#">Tout voir →</a></div>
+                    <table class="embed-table">
+                      <thead><tr><th>Département</th><th>Rendement</th><th>vs normale</th><th>Signal</th></tr></thead>
+                      <tbody>
+                        <tr><td><strong>Aube</strong></td><td>58 q/ha</td><td class="gap-neg">−12 %</td><td><span class="ins-signal ins-signal--stress">Stress sécheresse</span></td></tr>
+                        <tr><td><strong>Moselle</strong></td><td>64 q/ha</td><td class="gap-neg">−9 %</td><td><span class="ins-signal ins-signal--watch">Surveillance</span></td></tr>
+                        <tr><td><strong>Meuse</strong></td><td>63 q/ha</td><td class="gap-neg">−7 %</td><td><span class="ins-signal ins-signal--watch">Surveillance</span></td></tr>
+                        <tr><td><strong>Vosges</strong></td><td>67 q/ha</td><td class="gap-neg">−3 %</td><td><span class="ins-signal ins-signal--watch">Surveillance</span></td></tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </div>
+              </main>
             </div>
           </div>
         </div>
