@@ -1,4 +1,4 @@
-# Filament — site démo
+# Filament : site démo
 
 **De la recherche au produit. Du produit à l'impact.**
 
@@ -14,7 +14,7 @@ Ouvrir `index.html` dans Chrome.
 
 ## Contact / pilote Ceres
 
-Dans `index.html`, définir `SITE_CONFIG.contactEmail` (ex. `vous@domaine.fr`) pour activer l'envoi via [FormSubmit](https://formsubmit.co) — sans backend. Sans email, le formulaire redirige vers LinkedIn.
+Dans `index.html`, définir `SITE_CONFIG.contactEmail` (ex. `vous@domaine.fr`) pour activer l'envoi via [FormSubmit](https://formsubmit.co) : sans backend. Sans email, le formulaire redirige vers LinkedIn.
 
 ## Source
 
