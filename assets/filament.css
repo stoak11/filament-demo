@@ -341,14 +341,15 @@ h2.section-title {
   border: 1px solid var(--line); border-radius: var(--radius);
   font-family: var(--font-sans); font-size: 14px; color: var(--ink); background: var(--surface);
 }
+.pilot-form textarea { min-height: 88px; resize: vertical; margin-bottom: 0; }
 .pilot-form input:focus, .pilot-form select:focus, .pilot-form textarea:focus {
   outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft);
 }
-.pilot-form textarea { min-height: 88px; resize: vertical; }
 .pilot-form button[type="submit"] {
-  width: 100%; padding: 12px 20px; border: none; border-radius: var(--radius);
+  width: 100%; margin-top: 16px; padding: 12px 20px;
+  border: none; border-radius: var(--radius);
   background: var(--ceres); color: #fff; font-size: 14px; font-weight: 600; cursor: pointer;
-  font-family: var(--font-sans);
+  font-family: var(--font-sans); appearance: none; box-shadow: none;
 }
 .pilot-form button[type="submit"]:hover { background: var(--ceres-ink); }
 .pilot-form button[type="submit"]:disabled { opacity: 0.6; cursor: not-allowed; }
@@ -357,6 +358,12 @@ h2.section-title {
   display: none; padding: 16px; border-radius: var(--radius);
   background: var(--ceres-soft); border: 1px solid #a7f3d0; color: var(--ceres-ink);
   font-size: 14px; text-align: center; margin-top: 12px;
+}
+.form-success:not(.visible) {
+  display: none !important;
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 .form-success.visible { display: block; }
 .demo-toast {
